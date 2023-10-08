@@ -90,7 +90,10 @@ export default function Availability({}: Props) {
 
       <Box sx={{ height: 400, width: "100%", m: 5 }}>
         <DataGrid
-          rows={schedules}
+          rows={schedules.map((schedule: any, index) => ({
+            ...schedule,
+            id: index.toString(),
+          }))}
           columns={columns}
           initialState={{
             pagination: {

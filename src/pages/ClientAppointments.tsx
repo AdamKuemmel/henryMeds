@@ -63,7 +63,10 @@ export default function ClientAppointments({}: Props) {
       My Upcoming Apppointments
       <Box sx={{ height: 400, width: "100%", m: 5 }}>
         <DataGrid
-          rows={appointments}
+          rows={appointments.map((appointment: any, index) => ({
+            ...appointment,
+            id: index.toString(),
+          }))}
           columns={columns}
           initialState={{
             pagination: {
@@ -73,7 +76,6 @@ export default function ClientAppointments({}: Props) {
             },
           }}
           pageSizeOptions={[5]}
-          checkboxSelection
           disableRowSelectionOnClick
         />
       </Box>

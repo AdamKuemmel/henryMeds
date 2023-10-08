@@ -30,7 +30,7 @@ export default function ProviderSidebar({}: Props) {
     <Box sx={{ width: "300px", height: "100vh", bgcolor: "lightgrey" }}>
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         {routes.map((route, i) => (
-          <NavLink to={route.route}>
+          <NavLink to={route.route} key={i}>
             <Typography sx={{ p: 2 }}>{route.label}</Typography>
           </NavLink>
         ))}

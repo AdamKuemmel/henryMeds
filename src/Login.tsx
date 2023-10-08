@@ -47,7 +47,6 @@ function LoginPage() {
             required
             id="outlined-required"
             label="Required"
-            defaultValue="Hello World"
           />
           <FormControlLabel
             control={<Checkbox name="provider" sx={{ ml: 2 }} />}
