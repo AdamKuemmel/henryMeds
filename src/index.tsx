@@ -2,24 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-import {
-  createRoutesFromElements,
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  Navigate,
-  BrowserRouter,
-} from "react-router-dom";
+import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 import "./index.css";
 
-import ErrorPage from "./pages/error-page";
-import Appointment, {
-  loader as appointmentLoader,
-  action as appointmentAction,
-} from "./pages/appointment";
-import EditAppointment, { action as editAction } from "./routes/edit";
-import { action as destroyAction } from "./routes/destroy";
 import Home from "./pages/home";
 import { AuthProvider, RequireAuth } from "./auth";
 import { LoginPage } from "./Login";

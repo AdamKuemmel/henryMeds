@@ -9,7 +9,7 @@ export async function getAppointments(query?: any) {
   if (!appointments) appointments = [];
   if (query) {
     appointments = matchSorter(appointments, query, {
-      keys: ["id"],
+      keys: ["id", "scheduleID"],
     });
   }
   return appointments.sort(sortBy("date", "createdAt"));
@@ -19,7 +19,6 @@ export async function createAppointment(
   id?: string,
   reason?: string,
   startDateTime?: Date,
-
   scheduleID?: string
 ) {
   await fakeNetwork();
