@@ -25,7 +25,7 @@ export default function ProviderAppointments({}: Props) {
 
   const columns: GridColDef[] = [
     {
-      field: "clientName",
+      field: "clientID",
       headerName: "Client Name",
       width: 200,
     },

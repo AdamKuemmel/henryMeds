@@ -17,6 +17,7 @@ export default function CreateAppointment({}: Props) {
   const [reason, setReason] = useState("");
   const [startDateTime, setStartDateTime] = useState<Date>();
   const [scheduleID, setScheduleID] = useState<string>();
+  const [providerID, setProviderID] = useState<string>();
   const [providers, setProviders] = useState<any>([]);
   const auth = useAuth();
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function CreateAppointment({}: Props) {
         auth.user?.username,
         reason,
         startDateTime,
-        scheduleID
+        providerID
       );
       navigate("/appointments");
     } catch (error) {
@@ -37,7 +38,7 @@ export default function CreateAppointment({}: Props) {
   const handleGetAvailability = async () => {
     try {
       const providers = await getAvailabilities();
-      setProviders(getIdsWithDuplicates(providers));
+      setProviders(getProviderIdsWithDuplicates(providers));
     } catch (error) {
       console.error("Error fetching providers", error);
     }
@@ -45,23 +46,23 @@ export default function CreateAppointment({}: Props) {
   useEffect(() => {
     handleGetAvailability();
   }, []);
-  function getIdsWithDuplicates(objectsArray: any[]): any[] {
-    const idMap: { [id: string]: any[] } = {};
+  function getProviderIdsWithDuplicates(objectsArray: any[]): any[] {
+    const providerIdMap: { [providerId: string]: any[] } = {};
 
     objectsArray.forEach((obj) => {
-      const id = obj.id;
+      const providerId = obj.providerID; // Assuming the property is named providerID
 
-      if (!idMap[id]) {
-        idMap[id] = [obj];
+      if (!providerIdMap[providerId]) {
+        providerIdMap[providerId] = [obj];
       } else {
-        idMap[id].push(obj);
+        providerIdMap[providerId].push(obj);
       }
     });
 
     // Convert the object values (arrays of objects) into a flat array
-    const idsWithDuplicates = Object.values(idMap);
+    const providerIdsWithDuplicates = Object.values(providerIdMap);
 
-    return idsWithDuplicates;
+    return providerIdsWithDuplicates;
   }
 
   return (
@@ -74,7 +75,7 @@ export default function CreateAppointment({}: Props) {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>{provider[0].id}</Typography>
+              <Typography>{provider[0].providerID}</Typography>
             </AccordionSummary>
             {provider?.map((availability: any) => (
               <Box sx={{ display: "flex", p: 2, borderTop: 1 }}>
@@ -96,6 +97,7 @@ export default function CreateAppointment({}: Props) {
                   onClick={() => {
                     setStartDateTime(availability?.startDate);
                     setScheduleID(availability.id);
+                    setProviderID(availability.providerID);
                   }}
                 >
                   select time slot
@@ -115,7 +117,7 @@ export default function CreateAppointment({}: Props) {
       <br />
       {scheduleID && (
         <Typography>
-          You are booking an appointment with {scheduleID} for{" "}
+          You are booking an appointment with {providerID} for{" "}
           {startDateTime?.toLocaleString("en-US", {
             weekday: "short",
             month: "short",

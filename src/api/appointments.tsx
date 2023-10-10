@@ -9,21 +9,22 @@ export async function getAppointments(query?: any) {
   if (!appointments) appointments = [];
   if (query) {
     appointments = matchSorter(appointments, query, {
-      keys: ["id", "scheduleID"],
+      keys: ["clientID", "scheduleID"],
     });
   }
   return appointments.sort(sortBy("date", "createdAt"));
 }
 
 export async function createAppointment(
-  id?: string,
+  clientID?: string,
   reason?: string,
   startDateTime?: Date,
   scheduleID?: string
 ) {
+  let id = Math.floor(Math.random() * 1000) + 1;
   await fakeNetwork();
 
-  let appointment = { id, reason, startDateTime, scheduleID };
+  let appointment = { id, clientID, reason, startDateTime, scheduleID };
 
   let appointments = await getAppointments();
   appointments.unshift(appointment);

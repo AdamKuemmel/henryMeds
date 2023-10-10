@@ -10,22 +10,23 @@ export async function getAvailabilities(query?: any) {
   if (!availabilities) availabilities = [];
   if (query) {
     availabilities = matchSorter(availabilities, query, {
-      keys: ["id"],
+      keys: ["providerID"],
     });
   }
   return availabilities.sort(sortBy("date", "createdAt"));
 }
 
 export async function createAvailability(
-  username?: string,
+  providerID?: string,
   title?: string,
   startDate?: Date,
   endDate?: Date
 ) {
   await fakeNetwork();
-  let id = username;
+  let id = Math.floor(Math.random() * 1000) + 1;
   let availability = {
     id,
+    providerID,
     title,
     startDate,
     endDate,

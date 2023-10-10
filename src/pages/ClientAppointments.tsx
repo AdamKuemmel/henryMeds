@@ -63,10 +63,7 @@ export default function ClientAppointments({}: Props) {
       My Upcoming Apppointments
       <Box sx={{ height: 400, width: "100%", m: 5 }}>
         <DataGrid
-          rows={appointments.map((appointment: any, index) => ({
-            ...appointment,
-            id: index.toString(),
-          }))}
+          rows={appointments}
           columns={columns}
           initialState={{
             pagination: {
